@@ -34,7 +34,7 @@ end
   end
 
   # Crear al menos 5 años de ventas por libro
-  (0..4).each do |year_offset|
+  (0..9).each do |year_offset|
     year = Date.current.year - year_offset
     book.sales.create(
       year: year,
