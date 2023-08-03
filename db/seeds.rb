@@ -19,11 +19,11 @@
   
   # Crear libros asociados a autores con datos falsos
   Author.all.each do |author|
-    rand(1..5).times do
+    rand(6..8).times do
       author.books.create(
         name: Faker::Book.title,
         summary: Faker::Lorem.paragraph,
-        date_of_publication: Faker::Date.between(from: 5.years.ago, to: Date.today),
+        date_of_publication: Faker::Date.between(from: 10.years.ago, to: 5.years.ago),
         number_of_sales: rand(100..1000)
       )
     end
@@ -31,7 +31,7 @@
   
   # Crear reseñas asociadas a libros con datos falsos
   Book.all.each do |book|
-    rand(1..5).times do
+    rand(1..10).times do
       book.reviews.create(
         review: Faker::Lorem.paragraph,
         score: rand(1..5),
@@ -42,10 +42,10 @@
   
   # Crear ventas por año asociadas a libros con datos falsos
   Book.all.each do |book|
-    (2015..2021).each do |year|
+    (2015..2017).each do |year|
       book.sales.create(
         year: year,
-        sales: rand(0..1000)
+        sales: rand(1..1000)
       )
     end
   end
