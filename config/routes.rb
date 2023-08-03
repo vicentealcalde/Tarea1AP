@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'books/search', to: 'books#search', as: 'search_books'
+
   resources :sales
   resources :reviews
   resources :books

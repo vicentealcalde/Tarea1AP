@@ -63,6 +63,17 @@ class BooksController < ApplicationController
     end
   end
 
+  def search
+    @search_terms = params[:q].present? ? params[:q].split : []
+    @books = Book.joins(:reviews).where("name ILIKE ANY (ARRAY[?]) OR reviews.review ILIKE ANY (ARRAY[?])", @search_terms.map { |term| "%#{term}%" }, @search_terms.map { |term| "%#{term}%" })
+  
+    if @books.present?
+      @books = @books.distinct.page(params[:page])
+    else
+      @books = []
+    end
+  end  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
