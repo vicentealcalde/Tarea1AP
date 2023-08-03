@@ -1,122 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Books</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 20px; /* Márgenes laterales para el cuerpo del documento */
-    }
+<!-- app/views/books/index.html.erb -->
 
-    h1 {
-      color: #007bff;
-      text-align: center;
-      margin-top: 20px;
-    }
+<h1>Top 10 rated books of all time!</h1>
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #007bff;
-      color: #fff;
-      text-align: left;
-      padding: 8px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      }
-
-    tr:hover {
-      background-color: #0056b3;
-    }
-
-    td a {
-      display: inline-block;
-      padding: 4px 8px;
-      background-color: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-
-    td a:hover {
-      background-color: #0056b3;
-    }
-  </style>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('th').click(function() {
-        var table = $(this).parents('table').eq(0);
-        var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
-        this.asc = !this.asc;
-        if (!this.asc) {
-          rows = rows.reverse();
-        }
-        for (var i = 0; i < rows.length; i++) {
-          table.append(rows[i]);
-        }
-      });
-
-      function comparer(index) {
-        return function(a, b) {
-          var valA = getCellValue(a, index);
-          var valB = getCellValue(b, index);
-          return $.isNumeric(valA) && $.isNumeric(valB) ?
-            valA - valB : valA.localeCompare(valB);
-        };
-      }
-
-      function getCellValue(row, index) {
-        return $(row).children('td').eq(index).text();
-      }
-    });
-  </script>
-</head>
-<body>
-  <p style="color: green"><%= notice %></p>
-
-  <h1>Books</h1>
-
-  <table>
-    <thead>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date of Publication</th>
+      <th>Number of Sales</th>
+      <th>Average Score</th>
+      <th>Highest Review</th>
+      <th>Lowest Review</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews_by_rating.each do |book, highest_review, lowest_review, average_score| %>
       <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Date of Publication</th>
-        <th>Number of Sales</th>
-        <th>Action</th>
+        <td><%= book.name %></td>
+        <td><%= book.summary %></td>
+        <td><%= book.date_of_publication %></td>
+        <td><%= book.number_of_sales %></td>
+        <td><%= average_score %></td>
+        <td>
+          <% if highest_review %>
+            <%= "#{highest_review.score} stars - #{highest_review.review}" %>
+          <% else %>
+            N/A
+          <% end %>
+        </td>
+        <td>
+          <% if lowest_review %>
+            <%= "#{lowest_review.score} stars - #{lowest_review.review}" %>
+          <% else %>
+            N/A
+          <% end %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% @books.each do |book| %>
-        <tr>
-          <td><%= book.name %></td>
-          <td><%= book.summary %></td>
-          <td><%= book.date_of_publication %></td>
-          <td><%= book.number_of_sales %></td>
-          <td>
-            <%= link_to "Show", book %>
-            <%= link_to "Edit", edit_book_path(book) %>
-            <%= link_to "Delete", book, method: :delete, data: { confirm: 'Are you sure?' } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>
 
-  <%= link_to "New book", new_book_path %>
-</body>
-</html>
+<%= link_to "New book", new_book_path %>
+

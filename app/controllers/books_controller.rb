@@ -3,7 +3,13 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @top_rated_books = Book.joins(:reviews).group(:id).order('AVG(reviews.score) DESC').limit(10)
+    @reviews_by_rating = @top_rated_books.map do |book|
+      highest_review = book.reviews.order(score: :desc).first
+      lowest_review = book.reviews.order(:score).first
+      average_score = book.reviews.average(:score)
+      [book, highest_review, lowest_review, average_score]
+    end
   end
 
   # GET /books/1 or /books/1.json
