@@ -1,14 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/sales/index.html.erb -->
 
-<h1>Sales</h1>
+<h1>Top 50 selling books of all time!</h1>
 
-<div id="sales">
-  <% @sales.each do |sale| %>
-    <%= render sale %>
-    <p>
-      <%= link_to "Show this sale", sale %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New sale", new_sale_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date of Publication</th>
+      <th>Total Sales for Book</th>
+      <th>Total Sales for Author</th>
+      <th>Top 5 Selling Book in Year of Publication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sales_data.each do |book, total_sales, author_total_sales, is_top_5_year| %>
+      <tr>
+        <td><%= book.name %></td>
+        <td><%= book.date_of_publication %></td>
+        <td><%= total_sales %></td>
+        <td><%= author_total_sales %></td>
+        <td><%= is_top_5_year ? "Yes" : "No" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

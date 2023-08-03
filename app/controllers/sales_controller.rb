@@ -3,7 +3,17 @@ class SalesController < ApplicationController
 
   # GET /sales or /sales.json
   def index
-    @sales = Sale.all
+    @top_selling_books = Book.joins(:sales).group('books.id').order('SUM(sales.sales) DESC').limit(50)
+    @sales_data = @top_selling_books.map do |book|
+      author_total_sales = book.sales.sum(:sales)
+      top_5_selling_books_same_year = Book.joins(:sales)
+                                          .where(sales: { year: book.date_of_publication.year })
+                                          .group('books.id')
+                                          .order('SUM(sales.sales) DESC')
+                                          .limit(5)
+      is_top_5_year = top_5_selling_books_same_year.include?(book)
+      [book, book.sales.sum(:sales), author_total_sales, is_top_5_year]
+    end
   end
 
   # GET /sales/1 or /sales/1.json
