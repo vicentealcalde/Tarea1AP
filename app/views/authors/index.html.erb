@@ -1,14 +1,127 @@
-<p style="color: green"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 20px; /* Márgenes laterales para el cuerpo del documento */
+    }
 
-<h1>Authors</h1>
+    h1 {
+      color: #007bff;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-<div id="authors">
-  <% @authors.each do |author| %>
-    <%= render author %>
-    <p>
-      <%= link_to "Show this author", author %>
-    </p>
-  <% end %>
-</div>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-<%= link_to "New author", new_author_path %>
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+      text-align: left;
+      padding: 8px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      }
+
+    tr:hover {
+      background-color: #0056b3;
+    }
+
+    td a {
+      display: inline-block;
+      padding: 4px 8px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    td a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('th').click(function() {
+        var table = $(this).parents('table').eq(0);
+        var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+        this.asc = !this.asc;
+        if (!this.asc) {
+          rows = rows.reverse();
+        }
+        for (var i = 0; i < rows.length; i++) {
+          table.append(rows[i]);
+        }
+      });
+
+      function comparer(index) {
+        return function(a, b) {
+          var valA = getCellValue(a, index);
+          var valB = getCellValue(b, index);
+          return $.isNumeric(valA) && $.isNumeric(valB) ?
+            valA - valB : valA.localeCompare(valB);
+        };
+      }
+
+      function getCellValue(row, index) {
+        return $(row).children('td').eq(index).text();
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Authors</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Date of birth</th>
+        <th>Country of origin</th>
+        <th>Short description</th>
+        <th>Number of published books</th>
+        <th>Average score</th>
+        <th>Total sales</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @authors.each do |author| %>
+        <tr>
+          <td><%= author.name %></td>
+          <td><%= author.date_of_birth %></td>
+          <td><%= author.country_of_origin %></td>
+          <td><%= author.short_description %></td>
+          <td><%= author.number_of_published_books %></td>
+          <td><%= number_with_precision(author.average_score, precision: 2) %></td>
+          <td><%= author.total_sales %></td>
+          <td>
+            <%= link_to "Show", author %>
+            <%= link_to "Edit", edit_author_path(author) %>
+            <%= link_to "Delete", author, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "New Author", new_author_path %>
+</body>
+</html>
+
