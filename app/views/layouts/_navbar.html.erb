@@ -7,3 +7,84 @@
     <li><%= link_to 'Search', search_books_path %></li>
   </ul>
 </nav>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('th').click(function() {
+        var table = $(this).parents('table').eq(0);
+        var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+        this.asc = !this.asc;
+        if (!this.asc) {
+          rows = rows.reverse();
+        }
+        for (var i = 0; i < rows.length; i++) {
+          table.append(rows[i]);
+        }
+      });
+
+      function comparer(index) {
+        return function(a, b) {
+          var valA = getCellValue(a, index);
+          var valB = getCellValue(b, index);
+          return $.isNumeric(valA) && $.isNumeric(valB) ?
+            valA - valB : valA.localeCompare(valB);
+        };
+      }
+
+      function getCellValue(row, index) {
+        return $(row).children('td').eq(index).text();
+      }
+    });
+  </script>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 20px; /* Márgenes laterales para el cuerpo del documento */
+    }
+
+    h1 {
+      color: #007bff;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+      text-align: left;
+      padding: 8px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      }
+
+    tr:hover {
+      background-color: #0056b3;
+    }
+
+    td a {
+      display: inline-block;
+      padding: 4px 8px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    td a:hover {
+      background-color: #0056b3;
+    }
+  </style>
