@@ -10,6 +10,11 @@ For this project the last recommended version of ruby for windows was used, this
 ```yaml
 ruby: 3.2.2
 ```
+# Postgres version
+For this project the last recommended version of Postgres for windows was used, this is:
+```yaml
+Postgres: 15
+```
     
 
 # System dependencies
@@ -45,6 +50,15 @@ rails db:migrate
 rails db:seed
 rails s
 
+# Start project
+To start the project it is necessary to run the following commands in the given order
+```yaml
+bundle install
+rails db:reset
+rails db:migrate
+rails db:seed
+rails s
+```
 
 # Enter the website
 When starting the project, it will be running on port 3000. In order to view the web page, you must enter your preferred browser and enter the following link:
