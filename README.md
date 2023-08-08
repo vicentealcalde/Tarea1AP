@@ -1,9 +1,20 @@
-# README
+# Start project
+The start of the project was created with the following command:
+```yaml
+rails new {nombre_del_proyecto} --database=postgresql
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Creation models
+The creation of the models was done using the `rails generate` command, this command created the CRUD automatically, the commands used were the following:
 
-Things you may want to cover:
+
+```yaml
+rails generate model Author name:string date_of_birth:date country_of_origin:string short_description:text
+rails generate model Book name:string summary:text date_of_publication:date number_of_sales:integer
+rails generate model Review book:references review:text score:integer:number_of_up_votes:integer
+rails generate model Sale book:references year:integer sales:integer
+
+```
 
 # Ruby version 
 For this project the last recommended version of ruby for windows was used, this is:
@@ -15,11 +26,7 @@ For this project the last recommended version of Postgres for windows was used, 
 ```yaml
 Postgres: 15
 ```
-    
 
-# System dependencies
-
-# Configuration
 
 # Database Connection
 
@@ -32,23 +39,6 @@ password: your_password
 
 By default, these are set to the PostgreSQL superuser (postgres default user) with the password "admin". However, you should update these variables according to your own PostgreSQL user credentials.
 
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# Tarea_1_Software_Architecture 
-
-bundle install
-rails db:reset
-rails db:migrate
-rails db:seed
-rails s
 
 # Start project
 To start the project it is necessary to run the following commands in the given order
