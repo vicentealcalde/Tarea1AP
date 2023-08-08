@@ -1,3 +1,14 @@
+# Ruby version 
+For this project the last recommended version of ruby for windows was used, this is:
+```yaml
+ruby: 3.2.2
+```
+# Postgres version
+For this project the last recommended version of Postgres for windows was used, this is:
+```yaml
+Postgres: 15
+```
+
 # Start project
 The start of the project was created with the following command:
 ```yaml
@@ -16,16 +27,7 @@ rails generate model Sale book:references year:integer sales:integer
 
 ```
 
-# Ruby version 
-For this project the last recommended version of ruby for windows was used, this is:
-```yaml
-ruby: 3.2.2
-```
-# Postgres version
-For this project the last recommended version of Postgres for windows was used, this is:
-```yaml
-Postgres: 15
-```
+
 
 
 # Database Connection
