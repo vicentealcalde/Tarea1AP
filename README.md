@@ -75,4 +75,14 @@ http://localhost:3000/books
 http://localhost:3000/sales
 ```
 
+# Search by words
+
+For some reason that we still do not understand, the fake data is generated in Latin, to facilitate the review, some Latin words will be included that can be searched:
+
+```yaml
+voluptatibus
+velit
+Enim
+```
+
 
