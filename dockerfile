@@ -7,17 +7,18 @@ RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 # Configura el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copia el Gemfile y el Gemfile.lock al contenedor
-COPY Gemfile Gemfile.lock ./
+# Copiar el archivo Gemfile y Gemfile.lock al directorio de trabajo
+COPY Gemfile Gemfile.lock /app/
 
 # Instala las gemas
 RUN bundle install
 
-# Copia el resto de los archivos de la aplicación al contenedor
-COPY . .
 
-# Expone el puerto 3000 para el servidor Rails
+# Copiar el resto de los archivos de la aplicación al directorio de trabajo
+COPY . /app/
+
+# Exponer el puerto 3000 en el contenedor
 EXPOSE 3000
 
-# Inicia el servidor Rails cuando el contenedor se ejecute
-CMD ["rails", "s"]
+# Definir el comando para iniciar el servidor
+CMD ["rails", "server", "-b", "0.0.0.0"]
