@@ -52,6 +52,12 @@ rails db:seed
 rails s
 ```
 
+# Start project with docker compose 
+To start the project with docker compose it is necessary to have docker desktop open. In the terminal of viaul estudio you must enter the following command and wait about 1 minute 
+```yaml
+docker-compose up --build
+```
+
 # Enter the website
 When starting the project, it will be running on port 3000. In order to view the web page, you must enter your preferred browser and enter the following link:
 

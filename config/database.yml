@@ -21,6 +21,7 @@ default: &default
   username: postgres
   password: admin
   host: db
+  
 
 development:
   <<: *default

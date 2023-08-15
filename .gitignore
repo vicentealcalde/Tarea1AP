@@ -33,7 +33,8 @@
 # Ignore archivos y directorios específicos
 
 # Archivos locales de configuración de PostgreSQL
-/config/database.yml
+#/config/database.yml
+data/
 
 # Archivos generados por Rails
 /db/*.sqlite3
