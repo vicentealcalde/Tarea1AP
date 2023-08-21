@@ -57,6 +57,7 @@ To start the project with docker compose it is necessary to have docker desktop 
 ```yaml
 docker-compose up --build
 ```
+To execute the docker you have to wait a considerable time due to postgres, since it does not always load correctly, so there is a 30-second sleep to wait for it
 
 # Enter the website
 When starting the project, it will be running on port 3000. In order to view the web page, you must enter your preferred browser and enter the following link:
